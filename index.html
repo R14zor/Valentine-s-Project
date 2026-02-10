@@ -26,12 +26,14 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--text-color);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         /* Ambient Background Animations */
@@ -416,6 +418,108 @@
                 opacity: 0;
             }
         }
+
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+            }
+
+            #game-stage,
+            #envelope-stage {
+                padding: 1rem;
+            }
+
+            .instructions {
+                width: min(100%, 560px);
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+                border-radius: 16px;
+            }
+
+            .instructions h1 {
+                font-size: clamp(2rem, 8vw, 2.4rem);
+            }
+
+            .instructions p {
+                font-size: clamp(0.95rem, 4vw, 1.1rem);
+            }
+
+            .score-board {
+                font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+            }
+
+            .hiding-spots-container {
+                gap: 1rem;
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+
+            .hiding-spot {
+                font-size: clamp(2.1rem, 12vw, 2.9rem);
+            }
+
+            .envelope {
+                width: min(84vw, 300px);
+                aspect-ratio: 3 / 2;
+                height: auto;
+            }
+
+            .flap {
+                border-left-width: min(42vw, 150px);
+                border-right-width: min(42vw, 150px);
+                border-top-width: min(31vw, 110px);
+            }
+
+            .pocket {
+                border-left-width: min(42vw, 150px);
+                border-right-width: min(42vw, 150px);
+                border-bottom-width: min(56vw, 200px);
+            }
+
+            .letter-preview {
+                width: min(72vw, 260px);
+                height: min(50vw, 180px);
+            }
+
+            .seal {
+                top: min(22vw, 80px);
+                left: calc(50% - 20px);
+            }
+
+            .open-btn {
+                margin-top: 1.5rem;
+                width: min(90vw, 320px);
+                padding: 0.85rem 1.5rem;
+                font-size: clamp(1.05rem, 5vw, 1.3rem);
+            }
+
+            .love-letter {
+                width: min(94vw, 600px);
+                max-height: 85dvh;
+                overflow-y: auto;
+                padding: 1.5rem 1.2rem;
+            }
+
+            .love-letter h2 {
+                font-size: clamp(1.8rem, 8vw, 2.2rem);
+                margin-bottom: 1.1rem;
+            }
+
+            .love-letter p {
+                font-size: clamp(1.15rem, 5.8vw, 1.4rem);
+                line-height: 1.45;
+            }
+        }
+
+        @media (hover: none) {
+            .hiding-spot:hover,
+            .envelope-container:hover,
+            .open-btn:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+                background: white;
+            }
+        }
     </style>
 </head>
 
@@ -489,6 +593,8 @@
             transition: transform 0.3s ease, opacity 0.3s;
             position: relative;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
             filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.1));
         }
 
@@ -697,7 +803,7 @@
         }
 
         function createConfetti() {
-            const colors = ['#ff4d6d', '#ff8fa3', '#fff', '#gold'];
+            const colors = ['#ff4d6d', '#ff8fa3', '#fff', 'gold'];
             for (let i = 0; i < 50; i++) {
                 const conf = document.createElement('div');
                 conf.style.position = 'fixed';
