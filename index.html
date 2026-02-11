@@ -26,12 +26,14 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--text-color);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         /* Ambient Background Animations */
@@ -138,6 +140,39 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary-color);
+        }
+
+        .love-counter {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 999px;
+            box-shadow: 0 6px 20px rgba(89, 13, 34, 0.16);
+            padding: 0.5rem 1rem;
+            text-align: center;
+        }
+
+        .love-counter-label {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #7c1530;
+            font-weight: 600;
+        }
+
+        .love-counter-time {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #590d22;
+            margin-top: 0.1rem;
         }
 
         /* Hidden Hearts */
@@ -416,6 +451,202 @@
                 opacity: 0;
             }
         }
+
+
+
+        .memory-reel {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .memory-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 0.55rem 0.55rem 0.85rem;
+            box-shadow: 0 8px 20px rgba(89, 13, 34, 0.16);
+            transform: rotate(var(--tilt));
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-card::after {
+            content: "❤️";
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .memory-card:hover {
+            transform: rotate(0deg) translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 26px rgba(89, 13, 34, 0.24);
+        }
+
+        .memory-card img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            background: linear-gradient(135deg, #ffdce3 0%, #fff 100%);
+        }
+
+        .memory-card span {
+            display: block;
+            margin-top: 0.55rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #7c1530;
+            text-align: center;
+        }
+
+        .memory-intro {
+            margin-top: 1.2rem;
+            margin-bottom: 0.65rem;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.92rem;
+            color: #7c1530;
+            letter-spacing: 0.03em;
+        }
+
+        .memory-card {
+            opacity: 0;
+            transform: translateY(20px) rotate(var(--tilt));
+        }
+
+        .memory-card.reveal {
+            animation: memoryPop 0.55s ease forwards;
+        }
+
+        @keyframes memoryPop {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) rotate(var(--tilt)) scale(0.94);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(var(--tilt)) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+            }
+
+            .love-counter {
+                top: 0.6rem;
+                max-width: calc(100vw - 1rem);
+                padding: 0.45rem 0.7rem;
+            }
+
+            .love-counter-time {
+                font-size: 0.8rem;
+            }
+
+            #game-stage,
+            #envelope-stage {
+                padding: 1rem;
+            }
+
+            .instructions {
+                width: min(100%, 560px);
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+                border-radius: 16px;
+            }
+
+            .instructions h1 {
+                font-size: clamp(2rem, 8vw, 2.4rem);
+            }
+
+            .instructions p {
+                font-size: clamp(0.95rem, 4vw, 1.1rem);
+            }
+
+            .score-board {
+                font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+            }
+
+            .hiding-spots-container {
+                gap: 1rem;
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+
+            .hiding-spot {
+                font-size: clamp(2.1rem, 12vw, 2.9rem);
+            }
+
+            .envelope {
+                width: min(84vw, 300px);
+                aspect-ratio: 3 / 2;
+                height: auto;
+            }
+
+            .flap {
+                border-left-width: min(42vw, 150px);
+                border-right-width: min(42vw, 150px);
+                border-top-width: min(31vw, 110px);
+            }
+
+            .pocket {
+                border-left-width: min(42vw, 150px);
+                border-right-width: min(42vw, 150px);
+                border-bottom-width: min(56vw, 200px);
+            }
+
+            .letter-preview {
+                width: min(72vw, 260px);
+                height: min(50vw, 180px);
+            }
+
+            .seal {
+                top: min(22vw, 80px);
+                left: calc(50% - 20px);
+            }
+
+            .open-btn {
+                margin-top: 1.5rem;
+                width: min(90vw, 320px);
+                padding: 0.85rem 1.5rem;
+                font-size: clamp(1.05rem, 5vw, 1.3rem);
+            }
+
+            .love-letter {
+                width: min(94vw, 600px);
+                max-height: 85dvh;
+                overflow-y: auto;
+                padding: 1.5rem 1.2rem;
+            }
+
+            .love-letter h2 {
+                font-size: clamp(1.8rem, 8vw, 2.2rem);
+                margin-bottom: 1.1rem;
+            }
+
+            .love-letter p {
+                font-size: clamp(1.15rem, 5.8vw, 1.4rem);
+                line-height: 1.45;
+            }
+        }
+
+        @media (hover: none) {
+            .hiding-spot:hover,
+            .envelope-container:hover,
+            .open-btn:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+                background: white;
+            }
+        }
     </style>
 </head>
 
@@ -426,6 +657,11 @@
         <div class="shape"></div>
         <div class="shape"></div>
         <div class="shape"></div>
+    </div>
+
+    <div class="love-counter" aria-live="polite">
+        <span class="love-counter-label">Since we met on 30/11/2024</span>
+        <span class="love-counter-time" id="love-timer">Loading...</span>
     </div>
 
     <!-- Game Stage -->
@@ -461,12 +697,36 @@
         <div class="love-letter">
             <button class="close-btn" onclick="closeLetter()">×</button>
             <h2>My Dearest Kashika,</h2>
-            <p>Happy Valentine’s Day my love, you make everything better just by being you. Your smile, your laugh, your care they make my world brighter.
-            And wow, you’re beautiful not just the way you look, but in the way you care, laugh, and light up every moment we share.
-            You have no idea how much I love you (if you say otherwise you hate me), and I can't wait to marry you honey.
-            Thank you for being my adventure, my comfort, and my love.</p>
-            <p>Happy Valentine's Day my love! ❤️</p>
-            <p style="text-align: right;">- Your Hubby</p>
+            <p>
+                Happy Valentine’s Day, my love. Every day with you feels softer, brighter, and more meaningful. Your smile calms
+                me, your laughter lifts me, and your kindness reminds me what real love looks like.
+            </p>
+            <p>
+                Thank you for being my comfort in difficult moments, my partner in joyful ones, and my favorite part of every
+                day. I admire your heart, your strength, and the warmth you bring into my life.
+            </p>
+            <p>With all my love, Happy Valentine’s Day. ❤️</p>
+            <p style="text-align: right;">Forever yours,<br>Hubby</p>
+
+            <p class="memory-intro">Our memories, revealed like little polaroids ✨</p>
+            <div class="memory-reel" id="memory-reel">
+                <figure class="memory-card" style="--tilt:-4deg;">
+                    <img src="memories/memory-1.jpg" alt="Memory 1" loading="lazy">
+                    <span>The sweet beginning</span>
+                </figure>
+                <figure class="memory-card" style="--tilt:3deg;">
+                    <img src="memories/memory-2.jpg" alt="Memory 2" loading="lazy">
+                    <span>My favorite place</span>
+                </figure>
+                <figure class="memory-card" style="--tilt:-2deg;">
+                    <img src="memories/memory-3.jpg" alt="Memory 3" loading="lazy">
+                    <span>Golden-hour us</span>
+                </figure>
+                <figure class="memory-card" style="--tilt:2deg;">
+                    <img src="memories/memory-4.jpg" alt="Memory 4" loading="lazy">
+                    <span>Always and forever</span>
+                </figure>
+            </div>
         </div>
     </div>
 
@@ -489,6 +749,8 @@
             transition: transform 0.3s ease, opacity 0.3s;
             position: relative;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
             filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.1));
         }
 
@@ -591,26 +853,26 @@
     <script>
         let heartsFound = 0;
         const totalHearts = 3;
+        const relationshipStart = new Date(2024, 10, 30, 0, 0, 0);
+        let loveTimerInterval;
 
         // Items to hide things in
         const hidingItems = ['🎁', '🎁', '🎁', '🧸', '🧸', '💐', '💐', '☁️', '💌', '🍬', '🧁', '🌹'];
         let spots = [];
 
-        window.onload = function () {
+        window.addEventListener('DOMContentLoaded', () => {
             initGame();
-        };
+            startLoveTimer();
+            initializeMemoryPhotos();
+        });
 
         function initGame() {
             const container = document.querySelector('.hiding-spots-container');
-            // Shuffle items
             hidingItems.sort(() => Math.random() - 0.5);
-
-            // Limit to maybe 12 items on screen for clean look
             const displayItems = hidingItems.slice(0, 12);
 
-            // Pick 3 random indices to hold hearts
-            let heartIndices = new Set();
-            while (heartIndices.size < 3) {
+            const heartIndices = new Set();
+            while (heartIndices.size < totalHearts) {
                 heartIndices.add(Math.floor(Math.random() * displayItems.length));
             }
 
@@ -628,17 +890,14 @@
         function checkSpot(element) {
             if (element.classList.contains('shaking') || element.classList.contains('revealed')) return;
 
-            if (element.dataset.hasHeart === "true") {
-                // FOUND HEART
+            if (element.dataset.hasHeart === 'true') {
                 element.classList.add('revealed');
 
-                // Show floating heart
                 const heart = document.createElement('div');
                 heart.classList.add('hidden-heart-popup', 'pop-anim');
                 heart.innerText = '❤️';
                 element.appendChild(heart);
 
-                // Sparkles at position
                 const rect = element.getBoundingClientRect();
                 createSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
@@ -649,10 +908,7 @@
                     setTimeout(revealEnvelope, 1200);
                 }
             } else {
-                // EMPTY
                 element.classList.add('shaking');
-                // Optional: Change emoji to empty/sad or just fade
-                // element.style.opacity = '0.5';
             }
         }
 
@@ -661,8 +917,8 @@
                 const sparkle = document.createElement('div');
                 sparkle.classList.add('sparkle');
                 sparkle.innerText = '✨';
-                sparkle.style.left = (x + (Math.random() * 40 - 20)) + 'px';
-                sparkle.style.top = (y + (Math.random() * 40 - 20)) + 'px';
+                sparkle.style.left = `${x + (Math.random() * 40 - 20)}px`;
+                sparkle.style.top = `${y + (Math.random() * 40 - 20)}px`;
                 document.body.appendChild(sparkle);
                 setTimeout(() => sparkle.remove(), 800);
             }
@@ -671,7 +927,6 @@
         function revealEnvelope() {
             const gameStage = document.getElementById('game-stage');
             const envelopeStage = document.getElementById('envelope-stage');
-
             gameStage.classList.add('hidden');
 
             setTimeout(() => {
@@ -685,24 +940,84 @@
         function openEnvelope() {
             const envContainer = document.getElementById('envelope');
             const letterView = document.getElementById('letter-view');
+
+            if (letterView.classList.contains('active')) return;
+
+            envContainer.classList.remove('open');
+            void envContainer.offsetWidth;
             envContainer.classList.add('open');
+
             setTimeout(() => {
                 letterView.classList.add('active');
+                revealMemoryCards();
                 createConfetti();
             }, 1500);
         }
 
         function closeLetter() {
             document.getElementById('letter-view').classList.remove('active');
+            document.getElementById('envelope').classList.remove('open');
+        }
+
+        function initializeMemoryPhotos() {
+            const photoFiles = [
+                'memories/memory-1.jpg',
+                'memories/memory-2.jpg',
+                'memories/memory-3.jpg',
+                'memories/memory-4.jpg'
+            ];
+
+            document.querySelectorAll('.memory-card img').forEach((img, index) => {
+                img.src = photoFiles[index];
+                img.addEventListener('error', () => {
+                    img.src = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='600' height='450'><rect width='100%' height='100%' fill='#ffe6ec'/><text x='50%' y='45%' text-anchor='middle' font-family='Arial' font-size='28' fill='#7c1530'>Add photo ${index + 1}</text><text x='50%' y='55%' text-anchor='middle' font-family='Arial' font-size='18' fill='#7c1530'>${photoFiles[index]}</text></svg>`)}`;
+                }, { once: true });
+            });
+        }
+
+        function revealMemoryCards() {
+            document.querySelectorAll('.memory-card').forEach((card, index) => {
+                card.classList.remove('reveal');
+                setTimeout(() => card.classList.add('reveal'), 180 * index);
+            });
+        }
+
+        function startLoveTimer() {
+            const output = document.getElementById('love-timer');
+            if (!output) return;
+
+            const pad = (value) => String(value).padStart(2, '0');
+
+            function update() {
+                const now = new Date();
+                const diff = now.getTime() - relationshipStart.getTime();
+
+                if (diff <= 0) {
+                    output.textContent = '0 days 00 hrs 00 min 00 sec';
+                    return;
+                }
+
+                const totalSeconds = Math.floor(diff / 1000);
+                const days = Math.floor(totalSeconds / 86400);
+                const hours = Math.floor((totalSeconds % 86400) / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+
+                output.textContent = `${days} days ${pad(hours)} hrs ${pad(minutes)} min ${pad(seconds)} sec`;
+            }
+
+            clearInterval(loveTimerInterval);
+            update();
+            loveTimerInterval = setInterval(update, 1000);
         }
 
         function createConfetti() {
-            const colors = ['#ff4d6d', '#ff8fa3', '#fff', '#gold'];
+            const colors = ['#ff4d6d', '#ff8fa3', '#fff', 'gold'];
             for (let i = 0; i < 50; i++) {
                 const conf = document.createElement('div');
                 conf.style.position = 'fixed';
-                conf.style.left = Math.random() * 100 + 'vw';
-                conf.style.top = -10 + 'px';
+                conf.style.left = `${Math.random() * 100}vw`;
+                conf.style.top = '-10px';
                 conf.style.width = '10px';
                 conf.style.height = '10px';
                 conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
